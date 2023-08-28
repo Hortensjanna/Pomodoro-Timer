@@ -47,6 +47,12 @@ def count_down(count):
         window.after(1000, count_down, count - 1)
     else:
         start_timer()
+        marks = ""
+        work_sessions = math.floor(reps/2)
+        for _ in range(work_sessions):
+            marks += "✅"
+        check_mark.config(text=marks)
+
 
 # ---------------------------- UI SETUP ------------------------------- #
 window = Tk()
@@ -69,7 +75,7 @@ reset_button.grid(column=2, row=2)
 title = Label(text="POMODORO TIMER", font=(FONT_NAME, 28, "bold"), fg=GREEN, bg=YELLOW)
 title.grid(column=1, row=0)
 
-check_mark = Label(text="✅", font=(FONT_NAME, 18, "normal"), fg=GREEN, bg=YELLOW)
+check_mark = Label(font=(FONT_NAME, 18, "normal"), fg=GREEN, bg=YELLOW)
 check_mark.grid(column=1, row=3)
 
 
