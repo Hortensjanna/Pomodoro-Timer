@@ -10,8 +10,15 @@ WORK_MIN = 25
 SHORT_BREAK_MIN = 5
 LONG_BREAK_MIN = 20
 reps = 0
-
+timer = None
 # ---------------------------- TIMER RESET ------------------------------- # 
+def reset_timer():
+    window.after_cancel(timer)
+    canvas.itemconfig(timer_text, text="00:00")
+    title.config(text="POMODORO TIMER")
+    check_mark.config(text="")
+    global reps
+    reps = 0
 
 # ---------------------------- TIMER MECHANISM ------------------------------- # 
 def start_timer():
@@ -44,7 +51,8 @@ def count_down(count):
 
     canvas.itemconfig(timer_text, text=f"{count_min}:{count_sec}")
     if count > 0:
-        window.after(1000, count_down, count - 1)
+        global timer
+        timer = window.after(1000, count_down, count - 1)
     else:
         start_timer()
         marks = ""
@@ -69,7 +77,7 @@ canvas.grid(column=1, row=1)
 start_button = Button(text="START", font=(FONT_NAME, 10, "normal"), command=start_timer)
 start_button.grid(column=0, row=2)
 
-reset_button = Button(text="RESET", font=(FONT_NAME, 10, "normal"))
+reset_button = Button(text="RESET", font=(FONT_NAME, 10, "normal"), command=reset_timer)
 reset_button.grid(column=2, row=2)
 
 title = Label(text="POMODORO TIMER", font=(FONT_NAME, 28, "bold"), fg=GREEN, bg=YELLOW)
